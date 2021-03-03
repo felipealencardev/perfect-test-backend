@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SaleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -10,6 +12,4 @@ Route::get('/sales', function () {
     return view('crud_sales');
 });
 
-Route::get('/products', function () {
-    return view('crud_products');
-});
+Route::resource('products', ProductController::class)->except(['index', 'show']);
