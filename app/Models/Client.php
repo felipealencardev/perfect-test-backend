@@ -14,4 +14,8 @@ class Client extends Model
         'email',
         'cpf'
     ];
+
+    public function sales() {
+        return $this->hasMany(Sale::class);
+    }
 }

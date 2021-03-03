@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,6 +25,14 @@ class Sale extends Model
 
     public function getDateAttribute($date) {
         return Carbon::createFromFormat('dd/MM/yyyy', $date);
+    }
+
+    public function client() {
+        return $this->belongsTo(Client::class);
+    }
+
+    public function product() {
+        return $this->belongsTo(Product::class);
     }
 
 }
