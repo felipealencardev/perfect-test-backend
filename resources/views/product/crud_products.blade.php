@@ -16,7 +16,7 @@
                         class="form-control @error('name') is-invalid @enderror"
                         id="name"
                         name="name"
-                        value="{{ old('name', $product->name) }}"
+                        value="{{ old('name', $product->name ?? '') }}"
                     >
                     @error('name')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -30,7 +30,7 @@
                         class="form-control @error('description') is-invalid @enderror"
                         id="description"
                         name="description"
-                    >{{ old('description', $product->description) }}</textarea>
+                    >{{ old('description', $product->description ?? '') }}</textarea>
                     @error('description')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -43,7 +43,7 @@
                         id="price"
                         placeholder="100,00 ou maior"
                         name="price"
-                        value="{{ old('price', $product->price) }}">
+                        value="{{ old('price', $product->price ?? '') }}">
                 </div>
                 @error('price')
                     <div class="alert alert-danger">{{ $message }}</div>
