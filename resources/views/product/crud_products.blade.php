@@ -1,10 +1,13 @@
 @extends('layout')
 
 @section('content')
-    <h1>Adicionar Produto</h1>
+    <h1>{{ isset($product) ? 'Editar' : 'Adicionar' }} Produto</h1>
     <div class='card'>
         <div class='card-body'>
-            <form method="POST" action="/products">
+            <form method="POST" action="{{ isset($product) ? route('products.update', $product->id) : route('products.store') }}">
+                @if (isset($product))
+                    @method('PUT')
+                @endif
                 @csrf
                 <div class="form-group">
                     <label for="name">Nome do produto</label>
@@ -13,7 +16,7 @@
                         class="form-control @error('name') is-invalid @enderror"
                         id="name"
                         name="name"
-                        value="{{ old('name') }}"
+                        value="{{ old('name', $product->name) }}"
                     >
                     @error('name')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -27,7 +30,7 @@
                         class="form-control @error('description') is-invalid @enderror"
                         id="description"
                         name="description"
-                    >{{ old('description') }}</textarea>
+                    >{{ old('description', $product->description) }}</textarea>
                     @error('description')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -40,7 +43,7 @@
                         id="price"
                         placeholder="100,00 ou maior"
                         name="price"
-                        value="{{ old('price') }}">
+                        value="{{ old('price', $product->price) }}">
                 </div>
                 @error('price')
                     <div class="alert alert-danger">{{ $message }}</div>

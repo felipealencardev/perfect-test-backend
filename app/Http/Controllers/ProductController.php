@@ -17,7 +17,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product/create');
+        return view('product/crud_products');
     }
 
     /**
@@ -31,8 +31,9 @@ class ProductController extends Controller
         try {
             $data = $request->all();
             Product::create($data);
-            return view('dashboard');
+            return redirect('/');
         } catch (Throwable $e) {
+            return redirect()->back()->with('error', 'Falha ao salvar produto');
         }
     }
 
@@ -44,7 +45,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('product/edit', ['product' => $product]);
+        return view('product/crud_products', ['product' => $product]);
     }
 
     /**
@@ -59,8 +60,9 @@ class ProductController extends Controller
         try {
             $data = $request->all();
             $product->fill($data)->save();
-            return view('dashboard');
+            return redirect('/');
         } catch (Throwable $e) {
+            return redirect()->back()->with('error', 'Falha ao salvar produto');
         }
     }
 

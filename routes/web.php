@@ -12,4 +12,4 @@ Route::get('/sales', function () {
     return view('crud_sales');
 });
 
-Route::resource('products', ProductController::class)->except(['index', 'show']);
+Route::resource('products', ProductController::class)->except(['index', 'show'])->names('products');
