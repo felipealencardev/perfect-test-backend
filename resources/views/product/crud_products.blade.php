@@ -2,6 +2,7 @@
 
 @section('content')
     <h1>{{ isset($product) ? 'Editar' : 'Adicionar' }} Produto</h1>
+    @include('alert')
     <div class='card'>
         <div class='card-body'>
             <form method="POST" action="{{ isset($product) ? route('products.update', $product->id) : route('products.store') }}">

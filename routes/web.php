@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('dashboard');
-});
+})->name('dashboard');
 
 Route::resource('sales', SaleController::class)->except(['index', 'show'])->names('sales');
 

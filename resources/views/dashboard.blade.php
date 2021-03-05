@@ -2,6 +2,7 @@
 
 @section('content')
     <h1>Dashboard de vendas</h1>
+    @include('alert')
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Tabela de vendas
