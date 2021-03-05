@@ -132,14 +132,10 @@
                 <div class="form-group">
                     <label for="status">Status</label>
                     <select id="status" name="status" class="form-control @error('status') is-invalid @enderror">
-                        <option
-                            value=""
-                            disabled
-                            hidden
-                            {{ old('status') === null ? 'selected' : '' }}>Selecione um Status</option>
-                        <option value="aprovado">Aprovado</option>
-                        <option value="cancelado">Cancelado</option>
-                        <option value="devolvido">Devolvido</option>
+                        <option value="null">Selecione um Status</option>
+                        <option value="aprovado" {{((old("status", $sale->status ?? '') == 'aprovado') ? 'selected' : '') }}>Aprovado</option>
+                        <option value="cancelado" {{((old("status", $sale->status ?? '') == 'cancelado') ? 'selected' : '') }}>Cancelado</option>
+                        <option value="devolvido" {{((old("status", $sale->status ?? '') == 'devolvido') ? 'selected' : '') }}>Devolvido</option>
                     </select>
                     @error('status')
                         <div class="alert alert-danger">{{ $message }}</div>
