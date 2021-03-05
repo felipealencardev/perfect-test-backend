@@ -8,8 +8,6 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
-Route::get('/sales', function () {
-    return view('crud_sales');
-});
+Route::resource('sales', SaleController::class)->except(['index', 'show'])->names('sales');
 
 Route::resource('products', ProductController::class)->except(['index', 'show'])->names('products');

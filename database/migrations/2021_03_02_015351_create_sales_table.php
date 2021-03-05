@@ -22,7 +22,7 @@ class CreateSalesTable extends Migration
             $table->date('date');
             $table->integer('quantity')->nullable();
             $table->double('discount', 8, 2)->nullable();
-            $table->enum('status', ['APPROVED', 'CANCELED', 'RETURNED'])->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }
