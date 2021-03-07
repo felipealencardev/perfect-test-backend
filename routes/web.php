@@ -8,5 +8,6 @@ use Illuminate\Support\Facades\Route;
 Route::resource('/', DashboardController::class)->only(['index'])->names('dashboard');
 
 Route::resource('sales', SaleController::class)->except(['index', 'show'])->names('sales');
+Route::get('search/sales', [SaleController::class, 'search'])->name('sales.search');
 
 Route::resource('products', ProductController::class)->except(['index', 'show'])->names('products');

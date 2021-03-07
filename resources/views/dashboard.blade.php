@@ -7,7 +7,7 @@
         <div class='card-body'>
             <h5 class="card-title mb-5">Tabela de vendas
                 <a href='{{ route('sales.create') }}' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
-            <form>
+            <form action="{{ route('sales.search') }}" method="GET">
                 @csrf
                 <div class="form-row align-items-center">
                     <div class="col-sm-5 my-1">
@@ -19,7 +19,8 @@
                                 <option value="null">Selecione um cliente</option>
                                 @forelse ($clients as $client)
                                     <option
-                                        value="{{ $client->id }}">
+                                        value="{{ $client->id }}"
+                                        {{ isset($client_id) && $client_id == $client->id ? 'selected' : '' }}>
                                         {{ $client->name }}
                                     </option>
                                 @empty
@@ -29,12 +30,17 @@
                         </div>
                     </div>
                     <div class="col-sm-6 my-1">
-                        <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Período</div>
                             </div>
-                            <input type="text" class="form-control date_range" id="inlineFormInputGroupUsername" placeholder="Username">
+                            <input
+                                type="text"
+                                class="form-control date_range"
+                                name="dates"
+                                id="dates"
+                                value="{{ isset($dates) ? "{$dates[0]} - {$dates[1]}" : '' }}"
+                            >
                         </div>
                     </div>
                     <div class="col-sm-1 my-1">
