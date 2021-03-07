@@ -6,21 +6,25 @@
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Tabela de vendas
-                <a href='' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
+                <a href='{{ route('sales.create') }}' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
             <form>
+                @csrf
                 <div class="form-row align-items-center">
                     <div class="col-sm-5 my-1">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Clientes</div>
                             </div>
-                            <select class="form-control" id="inlineFormInputName">
-                                <option>Clientes</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                            <select id="client_id" name="client_id" class="form-control">
+                                <option value="null">Selecione um cliente</option>
+                                @forelse ($clients as $client)
+                                    <option
+                                        value="{{ $client->id }}">
+                                        {{ $client->name }}
+                                    </option>
+                                @empty
+
+                                @endforelse
                             </select>
                         </div>
                     </div>
@@ -40,7 +44,7 @@
                 </div>
             </form>
             <table class='table'>
-                <tr>
+                <thead>
                     <th scope="col">
                         Produto
                     </th>
@@ -53,49 +57,34 @@
                     <th scope="col">
                         Ações
                     </th>
-                </tr>
-                <tr>
-                    <td>
-                        Perfect Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h15
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Nature Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h20
-                    </td>
-                    <td>
-                        R$ 125,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Libid Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h45
-                    </td>
-                    <td>
-                        R$ 110,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
+                </thead>
+                <tbody>
+                    @forelse ($sales as $sale)
+                        @php
+                            $totalValue = $sale->product->price * $sale->quantity;
+                            if ($sale->discount > 0) {
+                                $totalValue -= $totalValue * ($sale->discount / 100);
+                            }
+                            $totalValue = 'R$' . number_format($totalValue, 2, ',', '.');
+                        @endphp
+                        <tr>
+                            <td>
+                                {{ $sale->product->name }}
+                            </td>
+                            <td>
+                                {{ $sale->date }}
+                            </td>
+                            <td>
+                                {{ $totalValue }}
+                            </td>
+                            <td>
+                                <a href="{{ route('sales.edit', $sale->id) }}" class="btn btn-primary">Editar</a>
+                            </td>
+                        </tr>
+                    @empty
+                        <td colspan="4" style="text-align: center">Não há vendas</td>
+                    @endforelse
+                </tbody>
             </table>
         </div>
     </div>

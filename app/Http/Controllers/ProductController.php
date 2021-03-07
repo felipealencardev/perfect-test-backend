@@ -31,7 +31,7 @@ class ProductController extends Controller
         try {
             $data = $request->all();
             Product::create($data);
-            return redirect()->route('dashboard')->with('success', 'Produto salvo com sucesso');
+            return redirect()->route('dashboard.index')->with('success', 'Produto salvo com sucesso');
         } catch (Throwable $e) {
             return redirect()->back()->with('error', 'Falha ao salvar produto');
         }
@@ -60,7 +60,7 @@ class ProductController extends Controller
         try {
             $data = $request->all();
             $product->fill($data)->save();
-            return redirect()->route('dashboard')->with('success', 'Produto salvo com sucesso');
+            return redirect()->route('dashboard.index')->with('success', 'Produto salvo com sucesso');
         } catch (Throwable $e) {
             return redirect()->back()->with('error', 'Falha ao salvar produto');
         }

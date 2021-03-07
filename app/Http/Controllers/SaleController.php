@@ -48,7 +48,7 @@ class SaleController extends Controller
                 'status' => $data['status']
             ];
             Sale::create($dataSale);
-            return redirect()->route('dashboard')->with('success', 'Venda salva com sucesso');
+            return redirect()->route('dashboard.index')->with('success', 'Venda salva com sucesso');
         } catch (Throwable $e) {
             return redirect()->back()->with('error', 'Falha ao salvar venda');
         }
@@ -95,7 +95,7 @@ class SaleController extends Controller
                 'status' => $data['status']
             ];
             $sale->fill($dataSale)->save();
-            return redirect()->route('dashboard')->with('success', 'Venda salva com sucesso');
+            return redirect()->route('dashboard.index')->with('success', 'Venda salva com sucesso');
         } catch (Throwable $e) {
             return redirect()->back()->with('error', 'Falha ao salvar produto');
         }
