@@ -20,11 +20,11 @@ class Sale extends Model
     ];
 
     public function setDateAttribute($date) {
-        $this->attributes['date'] = Carbon::createFromDate($date)->format('Y-m-d');
+        $this->attributes['date'] = Carbon::createFromFormat('d/m/Y', $date);
     }
 
     public function getDateAttribute($date) {
-        return Carbon::createFromFormat('dd/MM/yyyy', $date);
+        return Carbon::createFromFormat('Y-m-d', $date)->format('d/m/Y');
     }
 
     public function client() {
