@@ -6,8 +6,6 @@ use App\Http\Requests\SalePostRequest;
 use App\Models\Client;
 use App\Models\Product;
 use App\Models\Sale;
-use App\Models\StatusSale;
-use Illuminate\Http\Request;
 use Throwable;
 
 class SaleController extends Controller
@@ -62,10 +60,11 @@ class SaleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sale $sale)
+    public function edit($id)
     {
+        $sale = Sale::with('client')->find($id);
         $products = Product::all();
-        return view('sale/crud_sales', ['sale' => $sale->with('client')->first(), 'products' => $products]);
+        return view('sale/crud_sales', ['sale' => $sale, 'products' => $products]);
     }
 
     /**
