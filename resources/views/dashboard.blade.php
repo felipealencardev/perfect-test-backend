@@ -143,9 +143,9 @@
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Produtos
-                <a href='' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Novo produto</a></h5>
+                <a href='{{ route('products.create') }}' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Novo produto</a></h5>
             <table class='table'>
-                <tr>
+                <thead>
                     <th scope="col">
                         Nome
                     </th>
@@ -155,40 +155,27 @@
                     <th scope="col">
                         Ações
                     </th>
-                </tr>
-                <tr>
-                    <td>
-                        Perfect Caps
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Nature Caps
-                    </td>
-                    <td>
-                        R$ 120,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Libid Caps
-                    </td>
-                    <td>
-                        R$ 150,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
+                </thead>
+                <tbody>
+                    @forelse ($products as $product)
+                        @php
+                            $price = 'R$' . number_format($product->price, 2, ',', '.');
+                        @endphp
+                        <tr>
+                            <td>
+                                {{ $product->name }}
+                            </td>
+                            <td>
+                                {{ $price }}
+                            </td>
+                            <td>
+                                <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary">Editar</a>
+                            </td>
+                        </tr>
+                    @empty
+                        <td colspan="3" style="text-align: center">Não há produtos</td>
+                    @endforelse
+                </tbody>
             </table>
         </div>
     </div>
