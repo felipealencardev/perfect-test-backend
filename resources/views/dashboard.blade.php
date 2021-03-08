@@ -98,7 +98,7 @@
         <div class='card-body'>
             <h5 class="card-title mb-5">Resultado de vendas</h5>
             <table class='table'>
-                <tr>
+                <thead>
                     <th scope="col">
                         Status
                     </th>
@@ -108,40 +108,18 @@
                     <th scope="col">
                         Valor Total
                     </th>
-                </tr>
-                <tr>
-                    <td>
-                        Vendidos
-                    </td>
-                    <td>
-                        100
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Cancelados
-                    </td>
-                    <td>
-                        120
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Devoluções
-                    </td>
-                    <td>
-                        120
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                </tr>
+                </thead>
+                <tbody>
+                    @forelse ($resultSales as $resultSale)
+                        <tr>
+                            <td>{{ $resultSale['status'] }}</td>
+                            <td>{{ $resultSale['quantity'] }}</td>
+                            <td>{{ $resultSale['totalPrice'] }}</td>
+                        </tr>
+                    @empty
+
+                    @endforelse
+                </tbody>
             </table>
         </div>
     </div>
