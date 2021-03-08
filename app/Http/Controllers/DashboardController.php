@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Sale;
 use App\Models\Status;
 use Carbon\Carbon;
+use Throwable;
 
 class DashboardController extends Controller
 {
@@ -25,32 +26,36 @@ class DashboardController extends Controller
     }
 
     public function search(SaleSearchRequest $request) {
-        $dataSearch = $request->all();
-        $clientId = $dataSearch['client_id'];
-        $dates = explode(' - ', $dataSearch['dates']);
-        $firstDate = Carbon::createFromFormat('d/m/Y', $dates[0])->format('Y-m-d');
-        $lastDate = Carbon::createFromFormat('d/m/Y', $dates[1])->format('Y-m-d');
+        try {
+            $dataSearch = $request->all();
+            $clientId = $dataSearch['client_id'];
+            $dates = explode(' - ', $dataSearch['dates']);
+            $firstDate = Carbon::createFromFormat('d/m/Y', $dates[0])->format('Y-m-d');
+            $lastDate = Carbon::createFromFormat('d/m/Y', $dates[1])->format('Y-m-d');
 
-        $salesFiltered = Sale::where(function($query) use ($clientId) {
-                if (!is_null($clientId) && $clientId !== 'null') {
-                    $query->where('client_id', $clientId);
-                }
-            })
-            ->where('date', '>=', $firstDate)
-            ->where('date', '<=', $lastDate)
-            ->get();
+            $salesFiltered = Sale::where(function($query) use ($clientId) {
+                    if (!is_null($clientId) && $clientId !== 'null') {
+                        $query->where('client_id', $clientId);
+                    }
+                })
+                ->where('date', '>=', $firstDate)
+                ->where('date', '<=', $lastDate)
+                ->get();
 
-        $clients = Client::all();
-        $products = Product::all();
-        $resultSales = $this->getResultSales();
-        return view('dashboard', [
-            'clients' => $clients,
-            'client_id' => $clientId,
-            'dates' => $dates,
-            'sales' => $salesFiltered,
-            'products' => $products,
-            'resultSales' => $resultSales
-        ]);
+            $clients = Client::all();
+            $products = Product::all();
+            $resultSales = $this->getResultSales();
+            return view('dashboard', [
+                'clients' => $clients,
+                'client_id' => $clientId,
+                'dates' => $dates,
+                'sales' => $salesFiltered,
+                'products' => $products,
+                'resultSales' => $resultSales
+            ]);
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error', 'Falha ao pesquiasr venda');
+        }
     }
 
     public function getResultSales() {
