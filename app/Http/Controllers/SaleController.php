@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SalePostRequest;
-use App\Http\Requests\SaleSearchRequest;
 use App\Models\Client;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\Status;
-use Carbon\Carbon;
 use Throwable;
 
 class SaleController extends Controller
@@ -124,30 +122,4 @@ class SaleController extends Controller
         //
     }
 
-    public function search(SaleSearchRequest $request) {
-        $dataSearch = $request->all();
-        $clientId = $dataSearch['client_id'];
-        $dates = explode(' - ', $dataSearch['dates']);
-        $firstDate = Carbon::createFromFormat('d/m/Y', $dates[0])->format('Y-m-d');
-        $lastDate = Carbon::createFromFormat('d/m/Y', $dates[1])->format('Y-m-d');
-
-        $salesFiltered = Sale::where(function($query) use ($clientId) {
-                if (!is_null($clientId) && $clientId !== 'null') {
-                    $query->where('client_id', $clientId);
-                }
-            })
-            ->where('date', '>=', $firstDate)
-            ->where('date', '<=', $lastDate)
-            ->get();
-
-        $clients = Client::all();
-        $products = Product::all();
-        return view('dashboard', [
-            'clients' => $clients,
-            'client_id' => $clientId,
-            'dates' => $dates,
-            'sales' => $salesFiltered,
-            'products' => $products
-        ]);
-    }
 }
