@@ -112,7 +112,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                {{-- <div class="form-group">
+                <div class="form-group">
                     <label for="status_id">Status</label>
                     <select id="status_id" name="status_id" class="form-control @error('status_id') is-invalid @enderror">
                         <option value="null">Selecione um Status</option>
@@ -127,18 +127,6 @@
                         @endforelse
                     </select>
                     @error('status_id')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div> --}}
-                <div class="form-group">
-                    <label for="status">Status</label>
-                    <select id="status" name="status" class="form-control @error('status') is-invalid @enderror">
-                        <option value="null">Selecione um Status</option>
-                        <option value="aprovado" {{((old("status", $sale->status ?? '') == 'aprovado') ? 'selected' : '') }}>Aprovado</option>
-                        <option value="cancelado" {{((old("status", $sale->status ?? '') == 'cancelado') ? 'selected' : '') }}>Cancelado</option>
-                        <option value="devolvido" {{((old("status", $sale->status ?? '') == 'devolvido') ? 'selected' : '') }}>Devolvido</option>
-                    </select>
-                    @error('status')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>

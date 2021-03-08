@@ -19,10 +19,11 @@ class CreateSalesTable extends Migration
             $table->foreign('product_id')->references('id')->on('products');
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')->references('id')->on('clients');
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('status');
             $table->date('date');
             $table->integer('quantity')->nullable();
             $table->double('discount', 8, 2)->nullable();
-            $table->string('status');
             $table->timestamps();
         });
     }

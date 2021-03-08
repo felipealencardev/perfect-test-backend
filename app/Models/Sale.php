@@ -13,10 +13,10 @@ class Sale extends Model
     protected $fillable = [
         'product_id',
         'client_id',
+        'status_id',
         'date',
         'quantity',
         'discount',
-        'status'
     ];
 
     public function setDateAttribute($date) {
@@ -33,6 +33,10 @@ class Sale extends Model
 
     public function product() {
         return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
+
+    public function status() {
+        return $this->belongsTo(Status::class, 'status_id', 'id');
     }
 
 }

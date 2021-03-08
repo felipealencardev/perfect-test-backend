@@ -7,6 +7,7 @@ use App\Http\Requests\SaleSearchRequest;
 use App\Models\Client;
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\Status;
 use Carbon\Carbon;
 use Throwable;
 
@@ -21,7 +22,11 @@ class SaleController extends Controller
     public function create()
     {
         $products = Product::all();
-        return view('sale/crud_sales', ['products' => $products]);
+        $status = Status::all();
+        return view('sale/crud_sales', [
+            'products' => $products,
+            'status' => $status
+        ]);
     }
 
     /**
@@ -44,10 +49,10 @@ class SaleController extends Controller
             $dataSale = [
                 'product_id' => $data['product_id'],
                 'client_id' => $client->id,
+                'status_id' => $data['status_id'],
                 'date' => $data['date'],
                 'quantity' => $data['quantity'],
                 'discount' => $data['discount'],
-                'status' => $data['status']
             ];
             Sale::create($dataSale);
             return redirect()->route('dashboard.index')->with('success', 'Venda salva com sucesso');
@@ -66,7 +71,12 @@ class SaleController extends Controller
     {
         $sale = Sale::with('client')->find($id);
         $products = Product::all();
-        return view('sale/crud_sales', ['sale' => $sale, 'products' => $products]);
+        $status = Status::all();
+        return view('sale/crud_sales', [
+            'sale' => $sale,
+            'products' => $products,
+            'status' => $status
+        ]);
     }
 
     /**
@@ -91,10 +101,10 @@ class SaleController extends Controller
             $dataSale = [
                 'product_id' => $data['product_id'],
                 'client_id' => $client->id,
+                'status_id' => $data['status_id'],
                 'date' => $data['date'],
                 'quantity' => $data['quantity'],
                 'discount' => $data['discount'],
-                'status' => $data['status']
             ];
             $sale->fill($dataSale)->save();
             return redirect()->route('dashboard.index')->with('success', 'Venda salva com sucesso');

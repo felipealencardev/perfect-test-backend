@@ -28,7 +28,7 @@ class SaleFactory extends Factory
             'date' => $date,
             'quantity' => $this->faker->numberBetween(1, 10),
             'discount' => $this->faker->numberBetween(1, 20),
-            'status' => $this->faker->randomElement(['aprovado', 'cancelado', 'devolvido'])
+            'status_id' => $this->faker->numberBetween(1, 3)
         ];
     }
 }

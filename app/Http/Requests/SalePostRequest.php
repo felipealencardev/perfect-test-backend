@@ -31,7 +31,7 @@ class SalePostRequest extends FormRequest
             'discount' => 'required|numeric|min:0|max:100',
             'date' => 'required',
             'product_id' => 'required',
-            'status' => 'required',
+            'status_id' => 'required',
         ];
     }
 
@@ -64,7 +64,7 @@ class SalePostRequest extends FormRequest
 
             'product_id.required' => 'O produto é obrigatório',
 
-            'status.required' => 'O status é obrigatório',
+            'status_id.required' => 'O status é obrigatório',
         ];
     }
 }
