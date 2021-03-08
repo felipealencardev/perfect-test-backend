@@ -16,11 +16,11 @@ class CreateSalesTable extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->unsignedBigInteger('client_id');
-            $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->unsignedBigInteger('status_id');
-            $table->foreign('status_id')->references('id')->on('status');
+            $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade');
             $table->date('date');
             $table->integer('quantity')->nullable();
             $table->double('discount', 8, 2)->nullable();

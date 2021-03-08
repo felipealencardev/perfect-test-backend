@@ -60,7 +60,7 @@
                     <th scope="col">
                         Valor
                     </th>
-                    <th scope="col">
+                    <th scope="col" style="text-align: center">
                         Ações
                     </th>
                 </thead>
@@ -83,8 +83,14 @@
                             <td>
                                 {{ $totalValue }}
                             </td>
-                            <td>
+                            <td style="text-align: center">
                                 <a href="{{ route('sales.edit', $sale->id) }}" class="btn btn-primary">Editar</a>
+                                {{-- <a data-url="{{ route('sales.destroy', $sale->id) }}" class="btn btn-danger">Excluir</a> --}}
+                                <form action="{{ route('sales.destroy', $sale->id) }}" method="POST" style="display: inline-flex">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Excluir</button>
+                                </form>
                             </td>
                         </tr>
                     @empty
@@ -136,7 +142,7 @@
                     <th scope="col">
                         Valor
                     </th>
-                    <th scope="col">
+                    <th scope="col" style="text-align: center">
                         Ações
                     </th>
                 </thead>
@@ -152,8 +158,13 @@
                             <td>
                                 {{ $price }}
                             </td>
-                            <td>
+                            <td style="text-align: center">
                                 <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary">Editar</a>
+                                <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display: inline-flex">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Excluir</button>
+                                </form>
                             </td>
                         </tr>
                     @empty

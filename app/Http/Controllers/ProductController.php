@@ -74,6 +74,12 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            Product::findOrFail($id)->delete();
+            return redirect()->route('dashboard.index')->with('success', 'Produto excluído com sucesso');
+        } catch (Throwable $e) {
+            dd($e);
+            return redirect()->back()->with('error', 'Falha ao excluir produto');
+        }
     }
 }

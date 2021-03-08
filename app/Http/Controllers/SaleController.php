@@ -119,7 +119,13 @@ class SaleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            Sale::findOrFail($id)->delete();
+            return redirect()->route('dashboard.index')->with('success', 'Venda excluída com sucesso');
+        } catch (Throwable $e) {
+            dd($e);
+            return redirect()->back()->with('error', 'Falha ao excluir venda');
+        }
     }
 
 }
